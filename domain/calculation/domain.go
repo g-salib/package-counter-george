@@ -1,19 +1,33 @@
 package calculation
 
-import "strconv"
+import (
+	"fmt"
+	"math"
+)
 
-func CalculatePacks(orderQuantityStr string) map[int]int {
-	orderQuantity, _ := strconv.Atoi(orderQuantityStr)
-	packSizes := []int{PackSize5000, PackSize2000, PackSize1000, PackSize500, PackSize250}
-	packs := make(map[int]int)
+func CalculatePacks(orderQuantity float64) []string {
+	// Define your standard pack sizes in descending order
+	packSizes := []float64{5000, 2000, 1000, 500, 250}
+	orderQuantity = math.Ceil(orderQuantity / float64(packSizes[len(packSizes)-1]))
+	// Initialize a map to store the pack sizes and their counts
+	packCounts := make(map[int]int)
+	for i := 0; i < len(packSizes); {
+		if orderQuantity >= packSizes[i]/250 {
+			orderQuantity -= (packSizes[i] / 250)
+			packCounts[int(packSizes[i])]++
+		} else {
+			i++
+		}
 
-	for _, packSize := range packSizes {
-		packCount := orderQuantity / packSize
+	}
+
+	// Convert the pack counts to strings in the desired format
+	result := []string{}
+	for packSize, packCount := range packCounts {
 		if packCount > 0 {
-			packs[packSize] = packCount
-			orderQuantity %= packSize
+			result = append(result, fmt.Sprintf("%dx%d", packCount, packSize))
 		}
 	}
 
-	return packs
+	return result
 }

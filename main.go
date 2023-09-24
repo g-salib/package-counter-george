@@ -1,6 +1,6 @@
 package main
 
-import "github.com/cms-connector/app"
+import "github.com/package-counter/app"
 
 func main() {
 
