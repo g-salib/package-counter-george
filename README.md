@@ -20,7 +20,7 @@ Package Counter App is a simple Go application that calculates the minimum numbe
 1. Clone the repository:
 
    ```bash
-   git clone 
+   git clone https://github.com/g-salib/package-counter-george.git
 
     Navigate to the project directory:
 
